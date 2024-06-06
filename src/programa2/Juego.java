@@ -6,16 +6,15 @@ import java.awt.*;
 public class Juego extends JPanel implements Runnable
 {
     private Thread thread;
-    private int velocidad = 10;
+    private int velocidad = 100;
     private KeyHandler kh;
 
     private Jugador player;
-    public Juego()
+    public Juego(KeyHandler kh)
     {
         setLayout(null);
         setBackground(Color.BLUE);
-        kh=new KeyHandler();
-        addKeyListener(kh);
+        this.kh = kh;
         player = new Jugador(10,10,10,kh);
     }
 

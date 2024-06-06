@@ -14,7 +14,7 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("Press");
+        //System.out.println(e.getKeyChar());
         w=e.getKeyCode()==KeyEvent.VK_W;
         a=e.getKeyCode()==KeyEvent.VK_A;
         s=e.getKeyCode()==KeyEvent.VK_S;
@@ -23,6 +23,9 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        w=false;
+        a=false;
+        s=false;
+        d=false;
     }
 }

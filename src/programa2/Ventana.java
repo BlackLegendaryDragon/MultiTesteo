@@ -10,7 +10,8 @@ public class Ventana extends JFrame
     }
     public Ventana()
     {
-        Juego juego = new Juego();
+        KeyHandler kh = new KeyHandler();
+        Juego juego = new Juego(kh);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Test01");
         setSize(400,400);
@@ -18,6 +19,7 @@ public class Ventana extends JFrame
         setLocationRelativeTo(null);
 
         add(juego);
+        addKeyListener(kh);
         juego.startThread();
 
         setVisible(true);

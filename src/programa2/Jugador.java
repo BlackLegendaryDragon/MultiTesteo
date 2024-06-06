@@ -3,28 +3,24 @@ package programa2;
 public class Jugador extends Entidad{
     KeyHandler kh;
 
-    public Jugador(int posicion_x,int posicion_y,int velocidad,KeyHandler kh)
+    public Jugador(int posicion_x,int posicion_y,int speed,KeyHandler kh)
     {
-        super(posicion_x,posicion_y,velocidad);
-        this.kh = kh;
-    }
-
-    public KeyHandler getKh() {
-        return kh;
-    }
-    public void setKh(KeyHandler kh) {
+        super(posicion_x,posicion_y,speed);
         this.kh = kh;
     }
 
     //funciones personalizadas
     public void update()
     {
-        //System.out.println("posX"+getPosicion_x()+"posY"+getPosicion_y());
-        System.out.println(kh.a);
-        if(kh.a){setPosicion_x(getPosicion_x()-velocidad);}
-        if(kh.d){setPosicion_x(getPosicion_x()+velocidad);}
-        if(kh.w){setPosicion_y(getPosicion_y()-velocidad);}
-        if(kh.s){setPosicion_y(getPosicion_y()+velocidad);}
+        //System.out.println(kh.isW());
+        System.out.println("posX"+posicion_x+"posY"+posicion_y+"Speed"+getSpeed());
+        //System.out.println(kh.a);
+
+        if(kh.a){posicion_x+=-speed;}
+        if(kh.d){posicion_x+=speed;}
+        if(kh.w){posicion_y+=-speed;}
+        if(kh.s){posicion_y+=speed;}
 
     }
+
 }
