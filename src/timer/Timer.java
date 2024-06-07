@@ -28,8 +28,10 @@ public class Timer extends JFrame
         Thread thread;
         int posX;
         int posY;
-        int angulo=0;
+        int angulo=90;
         int largo=100;
+        int segundos=0;
+        int minutos=0;
 
         public Reloj()
         {
@@ -48,30 +50,41 @@ public class Timer extends JFrame
             while(thread.isAlive())
             {
                 try {
-                    thread.sleep(100);
+                    thread.sleep(1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
+                segundos++;
                 update();
                 repaint();
             }
         }
         public void update()
         {
-            angulo++;
             //angulo = 45;
-            angulo=angulo>360?0:angulo;
+            if(segundos>=60){
+                minutos++;
+                segundos=0;
+            }
+            angulo=minutos*360/(60);
+            System.out.println(angulo);
+            int invertido=180<angulo?1:-1;
 
-            posX=(int)coh(angulo,largo)+200;
-            posY=(int)pitagoras(largo,posX-200)+200;
+            posX=-(int)coh(angulo,largo)+200;
+            posY=invertido*(int)pitagoras(largo,posX-200)+200;
 
             System.out.printf("PosX %d, PosY %d\n",posX,posY);
         }
 
         public void paintComponent(Graphics g)
         {
-            g.setColor(Color.BLACK);
-            g.drawLine(200,200,posX, posY);
+            Graphics2D g2 = (Graphics2D)g;
+            g2.setColor(Color.WHITE);
+            g2.fillRect(0,0,getWidth(),getHeight());
+            g2.setColor(Color.BLACK);
+            g2.drawString("segundos:"+segundos+" minutos:"+minutos,10,10);
+            g2.drawLine(200,200,posX, posY);
+            g2.drawOval(100,100,200,200);
         }
 
         public double coh(double angulo, double largo)
