@@ -18,6 +18,8 @@ public class Reloj extends JPanel implements Runnable
     int segundos=0;
     int minutos=0;
     int horas=0;
+    int invertido_segundos=1;
+    int invertido_minutos=1;
 
     public Reloj()
     {
@@ -56,12 +58,12 @@ public class Reloj extends JPanel implements Runnable
             horas++;
             minutos=0;
         }
-        angulo_segundos=segundos*360/(60);
-        angulo_minutos=minutos*360/(60);
+        angulo_segundos=agregar_90(segundos*360/(60));
+        angulo_minutos=agregar_90(minutos*360/(60));
 
-        int invertido_segundos=180<angulo_segundos?1:-1;
-        int invertido_minutos=180<angulo_minutos?1:-1;
-        System.out.println(angulo_segundos);
+        invertido_segundos=180<angulo_segundos?1:-1;
+        invertido_minutos=180<angulo_minutos?1:-1;
+        //System.out.println(angulo_segundos);
 
         pos_segundero_X=-(int)coh(angulo_segundos,segundero)+200;
         pos_segundero_Y=invertido_segundos*(int)pitagoras(segundero,pos_segundero_X-200)+200;
@@ -94,5 +96,18 @@ public class Reloj extends JPanel implements Runnable
     public double pitagoras(double hipotenusa, double largo)
     {
         return Math.sqrt(Math.pow(hipotenusa,2)-Math.pow(largo,2));
+    }
+    public int agregar_90(int angulo)
+    {
+        int salida = 0;
+        if(angulo<270)
+        {
+            salida = angulo+90;
+        }else
+        {
+            salida = angulo-270;
+        }
+        System.out.println("entrada: "+angulo+" ||salida: "+salida);
+        return salida;
     }
 }
