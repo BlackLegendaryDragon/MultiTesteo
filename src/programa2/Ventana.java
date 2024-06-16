@@ -22,6 +22,7 @@ public class Ventana extends JFrame
         add(juego);
         addKeyListener(kh);
         addMouseMotionListener(mh);
+        addMouseListener(mh);
         juego.startThread();
 
         setVisible(true);
