@@ -6,12 +6,21 @@ public class Jugador extends Entidad{
     private MouseHandler mh;
     private final int ajuste_x = -4;
     private final int ajuste_y = -6;
+    private boolean colicion = false;
+    private int ammo;
+    private Enemigo objetivo;
 
-    public Jugador(int posicion_x,int posicion_y,int speed,MouseHandler mh)
+    public Jugador(int posicion_x,int posicion_y,int speed,int ammo,MouseHandler mh)
     {
         super(posicion_x,posicion_y,speed);
         this.mh = mh;
+        this.ammo = ammo;
     }
+
+    public boolean isColicion() {return colicion;}
+    public void setColicion(boolean col) {this.colicion = col;}
+    public Enemigo getObjetivo() {return objetivo;}
+    public void setObjetivo(Enemigo objetivo) {this.objetivo = objetivo;}
 
     //funciones personalizadas
     @Override
@@ -23,16 +32,36 @@ public class Jugador extends Entidad{
         setPosicion_x(mh.cursor_pos_x);
         setPosicion_y(mh.cursor_pos_y);
 
+        if(mh.clicked){
+            shoot(objetivo);
+            System.out.println("Shoot to "+objetivo);
+        }
+
     }
-    public void dibujar_mirilla(Graphics2D g2d)
+    public void dibujar_hud(Graphics2D g2d)
     {
-        g2d.setColor(Color.RED);
+        if(colicion){
+            g2d.setColor(Color.RED);
+        }else
+        {
+            g2d.setColor(Color.GREEN);
+        }
         g2d.drawOval(getPosicion_x()+ajuste_x,getPosicion_y()+ajuste_y,20,20);
         g2d.drawLine(getPosicion_x()-5+ajuste_x,getPosicion_y()+10+ajuste_y,getPosicion_x()+5+ajuste_x,getPosicion_y()+10+ajuste_y);
         g2d.drawLine(getPosicion_x()+15+ajuste_x,getPosicion_y()+10+ajuste_y,getPosicion_x()+25+ajuste_x,getPosicion_y()+10+ajuste_y);
 
         g2d.drawLine(getPosicion_x()+10+ajuste_x,getPosicion_y()-5+ajuste_y,getPosicion_x()+10+ajuste_x,getPosicion_y()+5+ajuste_y);
         g2d.drawLine(getPosicion_x()+10+ajuste_x,getPosicion_y()+15+ajuste_y,getPosicion_x()+10+ajuste_x,getPosicion_y()+25+ajuste_y);
+
+        g2d.setColor(Color.BLACK);
+        g2d.drawString("Ammo: "+ammo,10,10);
+    }
+    public void shoot(Enemigo objetivo)
+    {
+        if(ammo>0&&objetivo!=null){
+            ammo--;
+            objetivo.recibir_hit(1);
+        }
     }
 
 }
