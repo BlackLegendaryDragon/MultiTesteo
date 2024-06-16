@@ -11,7 +11,8 @@ public class Ventana extends JFrame
     public Ventana()
     {
         KeyHandler kh = new KeyHandler();
-        Juego juego = new Juego(kh);
+        MouseHandler mh = new MouseHandler();
+        Juego juego = new Juego(kh, mh);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Test01");
         setSize(700,400);
@@ -20,6 +21,7 @@ public class Ventana extends JFrame
 
         add(juego);
         addKeyListener(kh);
+        addMouseMotionListener(mh);
         juego.startThread();
 
         setVisible(true);
