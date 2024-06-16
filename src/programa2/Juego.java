@@ -14,15 +14,17 @@ public class Juego extends JPanel implements Runnable
     private Jugador player;
     private Enemigo enemigo;
     private Enemigo enemigo2;
+
+    private int lock_tick = 5;
     public Juego(KeyHandler kh, MouseHandler mh)
     {
         setLayout(null);
         setBackground(Color.BLUE);
         this.kh = kh;
         this.mh = mh;
-        player = new Jugador(10,10,10,mh);
+        player = new Jugador(10,10,10,10,mh);
         enemigo = new Enemigo(20,20, 2,3);
-        enemigo2 = new Enemigo(20,20, 1,5);
+        enemigo2 = new Enemigo(20,40, 1,5);
 
         entity_list[0]=enemigo2;
         entity_list[1]=enemigo;
@@ -50,11 +52,42 @@ public class Juego extends JPanel implements Runnable
     }
     public void update()
     {
+        Enemigo objetivo;
         player.update();
         for(Entidad e: entity_list)
         {
+
+            objetivo = colicion(player,e);
+            //System.out.println(objetivo);
+            player.setObjetivo(objetivo);
             e.update();
         }
+    }
+    public Enemigo colicion(Jugador player, Entidad e)
+    {
+        Enemigo objetivo = null;
+
+        int player_pos_x = player.posicion_x;
+        int player_pos_y = player.posicion_y;
+        int enemigo_pos_x = e.posicion_x;
+        int enemigo_pos_y = e.posicion_y;
+
+        if(player_pos_x>=enemigo_pos_x&&player_pos_x<=enemigo_pos_x+10&&
+                player_pos_y>=enemigo_pos_y&&player_pos_y<=enemigo_pos_y+10)
+        {
+            player.setColicion(true);
+            lock_tick=5;
+            //System.out.println(e);
+            objetivo= (Enemigo) e;
+        }else
+        {
+            lock_tick--;
+        }
+        if(lock_tick<=0){
+            lock_tick=5;
+            player.setColicion(false);
+        }
+        return objetivo;
     }
     public void paintComponent(Graphics g)
     {
@@ -68,7 +101,7 @@ public class Juego extends JPanel implements Runnable
     }
     public void dibujarlista(Graphics2D g2,Entidad[] lista)
     {
-        player.dibujar_mirilla(g2);
+        player.dibujar_hud(g2);
         for(Entidad e: lista)
         {
             g2.setColor(Color.BLACK);
