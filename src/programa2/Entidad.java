@@ -50,4 +50,6 @@ public abstract class Entidad {
     public int getVelY() {
         return velY;
     }
+
+    public void update() {}
 }

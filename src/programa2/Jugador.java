@@ -10,6 +10,7 @@ public class Jugador extends Entidad{
     }
 
     //funciones personalizadas
+    @Override
     public void update()
     {
         //System.out.println(kh.isW());
