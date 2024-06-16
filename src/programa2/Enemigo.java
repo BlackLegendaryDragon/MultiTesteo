@@ -25,6 +25,7 @@ public class Enemigo extends Entidad
     public void recibir_hit(int hit)
     {
         hit_points -= hit;
+        System.out.println("Im hurt");
         if (hit_points <= 0) {
             death();
         }
@@ -32,6 +33,7 @@ public class Enemigo extends Entidad
     public void death()
     {
         setSpeed(0);
+        System.out.println("Im death");
     }
 
 }
