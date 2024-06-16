@@ -8,19 +8,23 @@ public class Juego extends JPanel implements Runnable
     private Thread thread;
     private int velocidad = 100;
     private KeyHandler kh;
+    private MouseHandler mh;
     private Entidad[] entity_list = new Entidad[2];
 
     private Jugador player;
     private Enemigo enemigo;
-    public Juego(KeyHandler kh)
+    private Enemigo enemigo2;
+    public Juego(KeyHandler kh, MouseHandler mh)
     {
         setLayout(null);
         setBackground(Color.BLUE);
         this.kh = kh;
-        player = new Jugador(10,10,10,kh);
+        this.mh = mh;
+        player = new Jugador(10,10,10,mh);
         enemigo = new Enemigo(20,20, 2,3);
+        enemigo2 = new Enemigo(20,20, 1,5);
 
-        entity_list[0]=player;
+        entity_list[0]=enemigo2;
         entity_list[1]=enemigo;
     }
 
@@ -46,6 +50,7 @@ public class Juego extends JPanel implements Runnable
     }
     public void update()
     {
+        player.update();
         for(Entidad e: entity_list)
         {
             e.update();
@@ -63,6 +68,7 @@ public class Juego extends JPanel implements Runnable
     }
     public void dibujarlista(Graphics2D g2,Entidad[] lista)
     {
+        player.dibujar_mirilla(g2);
         for(Entidad e: lista)
         {
             g2.setColor(Color.BLACK);
