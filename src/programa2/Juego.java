@@ -6,6 +6,7 @@ import java.awt.*;
 public class Juego extends JPanel implements Runnable
 {
     private Thread thread;
+    private int FPS = 60;
     private int velocidad = 100;
     private KeyHandler kh;
     private MouseHandler mh;
@@ -19,11 +20,11 @@ public class Juego extends JPanel implements Runnable
     public Juego(KeyHandler kh, MouseHandler mh)
     {
         setLayout(null);
-        setBackground(Color.BLUE);
+        setBackground(Color.WHITE);
         this.kh = kh;
         this.mh = mh;
         player = new Jugador(10,10,10,10,mh);
-        enemigo = new Enemigo(20,20, 2,3);
+        enemigo = new Enemigo(20,20, 1,3);
         enemigo2 = new Enemigo(20,40, 1,5);
 
         entity_list[0]=enemigo2;
@@ -39,16 +40,24 @@ public class Juego extends JPanel implements Runnable
     @Override
     public void run()
     {
-            while(thread!=null)
-            {
-                try {
-                    Thread.sleep(velocidad);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+        double drawInterval = (double) 1_000_000_000 /FPS;
+        double nextDrawInterval = System.nanoTime() - drawInterval;
+        while(thread != null){
+
+            update();
+            repaint();
+            try{
+                double remainingTime = nextDrawInterval - System.nanoTime();
+                remainingTime = remainingTime / drawInterval;
+                if(remainingTime < 0){
+                    remainingTime = 0;
                 }
-                update();
-                repaint();
+                Thread.sleep((long) remainingTime);
+                nextDrawInterval += drawInterval;
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
+        }
     }
     public void update()
     {
@@ -78,7 +87,8 @@ public class Juego extends JPanel implements Runnable
             player.setColicion(true);
             lock_tick=5;
             //System.out.println(e);
-            objetivo= (Enemigo) e;
+
+            objetivo = (Enemigo) e;
         }else
         {
             lock_tick--;
@@ -92,7 +102,7 @@ public class Juego extends JPanel implements Runnable
     public void paintComponent(Graphics g)
     {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.BLUE);
+        g2d.setColor(Color.WHITE);
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
         g2d.setColor(Color.BLACK);
