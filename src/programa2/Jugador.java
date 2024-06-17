@@ -9,6 +9,7 @@ public class Jugador extends Entidad{
     private boolean colicion = false;
     private int ammo;
     private Enemigo objetivo;
+    private boolean relased = true;
 
     public Jugador(int posicion_x,int posicion_y,int speed,int ammo,MouseHandler mh)
     {
@@ -36,6 +37,7 @@ public class Jugador extends Entidad{
             shoot(objetivo);
             System.out.println("Shoot to "+objetivo);
         }
+        relased = !mh.clicked;
 
     }
     public void dibujar_hud(Graphics2D g2d)
@@ -58,7 +60,8 @@ public class Jugador extends Entidad{
     }
     public void shoot(Enemigo objetivo)
     {
-        if(ammo>0&&objetivo!=null){
+        if(ammo>0&&objetivo!=null&&relased){
+            relased = false;
             ammo--;
             objetivo.recibir_hit(1);
         }
