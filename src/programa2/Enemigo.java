@@ -5,7 +5,7 @@ public class Enemigo extends Entidad
 
     private int hit_points;
 
-    public Enemigo(int x, int y, int speed, int hit_points) {
+    public Enemigo(int x, int y, double speed, int hit_points) {
         super(x, y, speed);
         this.hit_points = hit_points;
     }

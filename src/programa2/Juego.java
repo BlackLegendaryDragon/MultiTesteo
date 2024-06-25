@@ -24,8 +24,8 @@ public class Juego extends JPanel implements Runnable
         this.kh = kh;
         this.mh = mh;
         player = new Jugador(10,10,10,10,mh);
-        enemigo = new Enemigo(20,20, 1,3);
-        enemigo2 = new Enemigo(20,40, 1,5);
+        enemigo = new Enemigo(20,20, 0.2,3);
+        enemigo2 = new Enemigo(20,40, 0.2,5);
 
         entity_list[0]=enemigo2;
         entity_list[1]=enemigo;
@@ -76,10 +76,10 @@ public class Juego extends JPanel implements Runnable
     {
         Enemigo objetivo = null;
 
-        int player_pos_x = player.posicion_x;
-        int player_pos_y = player.posicion_y;
-        int enemigo_pos_x = e.posicion_x;
-        int enemigo_pos_y = e.posicion_y;
+        int player_pos_x = (int) (player.posicion_x-8);
+        int player_pos_y = (int) (player.posicion_y-30);
+        int enemigo_pos_x = (int) e.posicion_x;
+        int enemigo_pos_y = (int) e.posicion_y;
 
         if(player_pos_x>=enemigo_pos_x&&player_pos_x<=enemigo_pos_x+10&&
                 player_pos_y>=enemigo_pos_y&&player_pos_y<=enemigo_pos_y+10)
@@ -115,7 +115,7 @@ public class Juego extends JPanel implements Runnable
         for(Entidad e: lista)
         {
             g2.setColor(Color.BLACK);
-            g2.fillRect(e.getPosicion_x(),e.getPosicion_y(),10,10);
+            g2.fillRect((int) e.getPosicion_x(), (int) e.getPosicion_y(),10,10);
         }
     }
 }

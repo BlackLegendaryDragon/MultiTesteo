@@ -14,13 +14,14 @@ public class MouseHandler implements MouseMotionListener, MouseListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        cursor_pos_x = e.getX();
+        cursor_pos_y = e.getY();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        cursor_pos_x = e.getX()-13;
-        cursor_pos_y = e.getY()-35;
+        cursor_pos_x = e.getX();
+        cursor_pos_y = e.getY();
         //System.out.printf("posX %d, posY %d\n",cursor_pos_x,cursor_pos_y);
     }
 

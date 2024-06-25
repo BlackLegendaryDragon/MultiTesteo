@@ -1,53 +1,53 @@
 package programa2;
 
 public abstract class Entidad {
-    int posicion_x, posicion_y;
-    int speed;
-    int velX, velY;
+    double posicion_x, posicion_y;
+    double speed;
+    double velX, velY;
 
-    public Entidad(int x, int y, int speed) {
+    public Entidad(int x, int y, double speed) {
         this.posicion_x=x;
         this.posicion_y=y;
         this.speed=speed;
     }
 
-    public int getPosicion_x() {
+    public double getPosicion_x() {
         return posicion_x;
     }
 
-    public int getPosicion_y() {
+    public double getPosicion_y() {
         return posicion_y;
     }
 
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
-    public int getVelX() {
+    public double getVelX() {
         return velX;
     }
 
-    public void setPosicion_x(int posicion_x) {
+    public void setPosicion_x(double posicion_x) {
         this.posicion_x = posicion_x;
     }
 
-    public void setPosicion_y(int posicion_y) {
+    public void setPosicion_y(double posicion_y) {
         this.posicion_y = posicion_y;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
 
-    public void setVelX(int velX) {
+    public void setVelX(double velX) {
         this.velX = velX;
     }
 
-    public void setVelY(int velY) {
+    public void setVelY(double velY) {
         this.velY = velY;
     }
 
-    public int getVelY() {
+    public double getVelY() {
         return velY;
     }
 

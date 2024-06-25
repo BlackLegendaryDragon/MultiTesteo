@@ -4,14 +4,14 @@ import java.awt.*;
 
 public class Jugador extends Entidad{
     private MouseHandler mh;
-    private final int ajuste_x = -4;
-    private final int ajuste_y = -6;
+    private final int ajuste_x = -18;
+    private final int ajuste_y = -40;
     private boolean colicion = false;
     private int ammo;
     private Enemigo objetivo;
     private boolean relased = true;
 
-    public Jugador(int posicion_x,int posicion_y,int speed,int ammo,MouseHandler mh)
+    public Jugador(int posicion_x,int posicion_y,double speed,int ammo,MouseHandler mh)
     {
         super(posicion_x,posicion_y,speed);
         this.mh = mh;
@@ -48,12 +48,12 @@ public class Jugador extends Entidad{
         {
             g2d.setColor(Color.GREEN);
         }
-        g2d.drawOval(getPosicion_x()+ajuste_x,getPosicion_y()+ajuste_y,20,20);
-        g2d.drawLine(getPosicion_x()-5+ajuste_x,getPosicion_y()+10+ajuste_y,getPosicion_x()+5+ajuste_x,getPosicion_y()+10+ajuste_y);
-        g2d.drawLine(getPosicion_x()+15+ajuste_x,getPosicion_y()+10+ajuste_y,getPosicion_x()+25+ajuste_x,getPosicion_y()+10+ajuste_y);
+        g2d.drawOval((int) (getPosicion_x()+ajuste_x), (int) (getPosicion_y()+ajuste_y),20,20);
+        g2d.drawLine((int) (getPosicion_x()-5+ajuste_x), (int) (getPosicion_y()+10+ajuste_y), (int) (getPosicion_x()+5+ajuste_x), (int) (getPosicion_y()+10+ajuste_y));
+        g2d.drawLine((int) (getPosicion_x()+15+ajuste_x), (int) (getPosicion_y()+10+ajuste_y), (int) (getPosicion_x()+25+ajuste_x), (int) (getPosicion_y()+10+ajuste_y));
 
-        g2d.drawLine(getPosicion_x()+10+ajuste_x,getPosicion_y()-5+ajuste_y,getPosicion_x()+10+ajuste_x,getPosicion_y()+5+ajuste_y);
-        g2d.drawLine(getPosicion_x()+10+ajuste_x,getPosicion_y()+15+ajuste_y,getPosicion_x()+10+ajuste_x,getPosicion_y()+25+ajuste_y);
+        g2d.drawLine((int) (getPosicion_x()+10+ajuste_x), (int) (getPosicion_y()-5+ajuste_y), (int) (getPosicion_x()+10+ajuste_x), (int) (getPosicion_y()+5+ajuste_y));
+        g2d.drawLine((int) (getPosicion_x()+10+ajuste_x), (int) (getPosicion_y()+15+ajuste_y), (int) (getPosicion_x()+10+ajuste_x), (int) (getPosicion_y()+25+ajuste_y));
 
         g2d.setColor(Color.BLACK);
         g2d.drawString("Ammo: "+ammo,10,10);
