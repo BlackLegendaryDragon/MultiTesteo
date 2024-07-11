@@ -1,29 +1,33 @@
 package clicker;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Juego extends JPanel implements Runnable{
+public class Juego extends JPanel implements Runnable, ActionListener {
 
-    private MouseHandler mh;
     private Tienda tienda;
     public int puntaje = 0;
-    private int agregado = 0;
     private JLabel label_puntaje = new JLabel("Puntaje: "+puntaje);
-
+    private JButton galleta;
     private Thread thread;
 
-    public Juego(MouseHandler mh) {
+    public Juego() {
         setLayout(null);
-        this.mh = mh;
+        galleta = new JButton("Boton");
+        galleta.setBounds(50,50,100,30);
         tienda = new Tienda(this);
         label_puntaje.setBounds(10,10,200,20);
 
         for(JButton boton: tienda.getBotones())
         {
             add(boton);
+            boton.addActionListener(this);
         }
 
         add(label_puntaje);
+        add(galleta);
+        galleta.addActionListener(this);
         //System.out.println("A");
     }
 
@@ -39,7 +43,7 @@ public class Juego extends JPanel implements Runnable{
         {
             puntaje+=tienda.getBonus()[i][1]*tienda.getBonus()[i][2];
         }
-        puntaje=mh.click?puntaje+1:puntaje;
+
         label_puntaje.setText("Puntaje: "+puntaje);
     }
 
@@ -54,5 +58,15 @@ public class Juego extends JPanel implements Runnable{
             }
             update();
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //System.out.println("A");
+        if(e.getSource().equals(galleta))
+        {
+            puntaje+=1;
+        }
+        update();
     }
 }

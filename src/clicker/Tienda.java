@@ -50,6 +50,7 @@ public class Tienda implements ActionListener {
         {
             juego.puntaje-=bonus[numero][0];
             bonus[numero][2]+=1;
+            juego.update();
             //System.out.println("Precio: "+bonus[numero][0]);
         }
 
