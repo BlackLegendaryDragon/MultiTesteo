@@ -63,8 +63,8 @@ public class Carrera extends JPanel implements Runnable{
 
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.BLACK);
-        //g2d.drawLine(1,1,20,20);
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(0,0,getWidth(),getHeight());
 
 
         for(int i=0;i<autos.length;i++)
