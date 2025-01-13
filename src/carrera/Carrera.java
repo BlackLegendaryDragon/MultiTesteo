@@ -3,11 +3,13 @@ package carrera;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Carrera extends JPanel implements Runnable{
+public class Carrera extends JPanel implements Runnable {
 
     private int meta = 30;
     private boolean ganador = false;
@@ -18,8 +20,11 @@ public class Carrera extends JPanel implements Runnable{
     private BufferedImage img = null;
 
     private Thread thread;
+
     public Carrera()
     {
+
+
         startThread();
         try {
             img = ImageIO.read(new File("src/carrera/carro.png"));
@@ -48,15 +53,25 @@ public class Carrera extends JPanel implements Runnable{
     }
     public void update()
     {
-        for(Auto auto : autos)
+        for(int i=0;i<autos.length;++i)
         {
+            int avanze = autos[i].avanzar();
             //System.out.println();
-            if(auto.avanzar()>=meta)
+            //System.out.println("Corriendo "+avanze);
+
+            if(avanze>=meta)
             {
+
                 ganador = true;
-                auto.setGanador(true);
-                System.out.println("El ganador es "+auto.getNombre());
-                break;
+                autos[i].setGanador(true);
+                System.out.println("El ganador es "+autos[i].getNombre());
+
+                i=autos.length;
+            }
+        }
+        for(Auto auto: autos){
+            if(auto.isGanador()&&JOptionPane.showInputDialog("Resetear").equalsIgnoreCase("si")){
+                resetear();
             }
         }
     }
@@ -74,4 +89,16 @@ public class Carrera extends JPanel implements Runnable{
             g2d.drawLine(20,10*i+20,10*(autos[i].getPosicion())+20,10*i+20);
         }
     }
+
+    public void resetear(){
+        ganador = false;
+        for(Auto auto:autos){
+            auto.setPosicion(0);
+            auto.setGanador(false);
+        }
+        repaint();
+        update();
+    }
+
+
 }
